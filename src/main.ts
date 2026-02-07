@@ -1161,7 +1161,7 @@ private setupSecurityRoutes(): void {
 
       this.authMiddleware.setupCacheCleanup()
 
-      this.app.listen(config.PORT, () => {
+      this.app.listen({ port: Number(config.PORT), hostname: '0.0.0.0' }, () => {
         this.logger.success(`🚀 Server running on port ${config.PORT}`)
         this.logger.info(`📊 Monitoring: http://localhost:${config.PORT}/monitor`)
         this.logger.info(`🐛 Debug routes: http://localhost:${config.PORT}/debug/routes`)
