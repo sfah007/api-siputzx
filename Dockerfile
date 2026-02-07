@@ -1,8 +1,8 @@
 FROM oven/bun:latest
 
-# تثبيت Chromium والمكتبات المطلوبة
 RUN apt-get update && apt-get install -y \
     chromium \
+    xvfb \
     fonts-liberation \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
     libxshmfence1 \
     libglu1-mesa \
     libvulkan1 \
+    dbus \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -33,12 +34,12 @@ COPY . .
 
 RUN mkdir -p /app/tmp
 
-# تحديد مسار Chromium
 ENV CHROME_PATH=/usr/bin/chromium
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 ENV PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV DISPLAY=:99
 
 EXPOSE 3000
 
-CMD ["bun", "run", "src/main.ts"]
+CMD Xvfb :99 -screen 0 1024x768x24 -nolisten tcp & sleep 1 && bun run src/main.ts
