@@ -100,7 +100,7 @@ private setupMiddleware(): void {
     blockAccess("/.env*", "403 - Forbidden: Access to configuration files is not allowed")
     blockAccess("/package*.json", "403 - Forbidden: Access to package files is not allowed")
     blockAccess("/bun.lockb", "403 - Forbidden: Access to package files is not allowed")
-    .derive(async ({ request, set }) => {
+    this.app.derive(async ({ request, set }) => {
       const start = Date.now()
       const ip = this.getClientIP(request)
       const endpoint = new URL(request.url).pathname
