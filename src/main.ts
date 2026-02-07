@@ -1153,11 +1153,7 @@ private setupSecurityRoutes(): void {
       await this.browserService.initialize()
       await this.databaseService.connect()
 
-      try {
-        await this.discordService.connect()
-      } catch (discordError) {
-        this.logger.warn("Discord bot failed to connect, but server will continue:", discordError)
-      }
+      
 
       this.authMiddleware.setupCacheCleanup()
 
@@ -1169,12 +1165,7 @@ private setupSecurityRoutes(): void {
         this.logger.info(`📁 Routes directory: ${config.ROUTER_PATH}`)
         this.logger.info(`💡 Use .ts extension for TypeScript, .js for JavaScript`)
 
-        const discordStatus = this.discordService.getStatus()
-        if (discordStatus.isReady) {
-          this.logger.success("🤖 Discord bot is ready")
-        } else {
-          this.logger.warn("🤖 Discord bot is offline, but server is running normally")
-        }
+        
       })
     } catch (error) {
       this.logger.error("Failed to start server:", error)
