@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun run --watch src/main.ts",
-    "start": "bun run src/main.ts",
-    "build": "bun build src/main.ts --outdir=dist",
+    "start": "mkdir -p /app/tmp && bun run src/main.ts",
+    "build": "bun build src/main.ts --outdir=dist --target=bun",
     "test": "bun test"
   },
   "dependencies": {
